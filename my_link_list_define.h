@@ -21,7 +21,7 @@ struct link_list
 	int age;					// 年龄
 	char sex;					// 性别
 	int node_num;				// 结点号
-	struct link_list *next; 	// 指向下一结点的指针
+	struct link_list *next;		// 指向下一结点的指针
 };
 
 

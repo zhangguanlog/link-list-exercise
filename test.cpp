@@ -8,7 +8,7 @@
 *Date:2022-03-22
 *
 *Description:测试链表相关操作代码，操作说明：输入第二个参数为要创建的
-*			链表的结点的个数，第三个参数为添加*			结点的位置，第四个为
+*			链表的结点的个数，第三个参数为添加结点的位置，第四个为
 *			删除结点的位置,第五个参数为需要添加结点的个数
 **************************************************************************/
 #include <iostream>
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	}
 
 	node_size = atoi(argv[1]);				// 链表的长度
-	add_node_position = atoi(argv[2]); 		// 加入的结点的位置
+	add_node_position = atoi(argv[2]);		// 加入的结点的位置
 	delete_node_position = atoi(argv[3]);	// 删除的结点的位置
 	insert_num = atoi(argv[4]);				// 增加结点的个数
 	
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	// 向链表头结点后添加insert_num个结点
 	test.insert_link_list_node_head(insert_num);
 
-	// 	打印添加后的链表
+	// 打印添加后的链表
 	cout << "head insert after:" << endl;
 	test.print_link_list(node_size + 2 * insert_num);
 
