@@ -1,3 +1,14 @@
+/**************************************************************************
+*Copyright:Zhangguanlog Tomorrow Science And Technology Company
+*
+*Author: Zhangguanlog
+*
+*File_name: my_link_list_define.h
+*
+*Date:2022-03-22
+*
+*Description:创建链表用到的结构体
+**************************************************************************/
 #pragma once
 
 struct link_list

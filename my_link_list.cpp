@@ -1,3 +1,14 @@
+/**************************************************************************
+*Copyright:Zhangguanlog Tomorrow Science And Technology Company
+*
+*Author: Zhangguanlog
+*
+*File_name: my_link_list.cpp
+*
+*Date:2022-03-22
+*
+*Description:链表类的实现
+**************************************************************************/
 #include <iostream>
 #include <malloc.h>
 #include <stdlib.h>
@@ -66,7 +77,7 @@ int my_link_list::print_link_list(int node_size)
 	for (i = 0; i < node_size; i++)
 	{
 		cout << p->node_num << " " << p->age << " " << p->grade << " " << p->height << " " << p->name << " " << p->node_num << " ";
-		cout << p->school_num << " " << p->sex << endl;
+		cout << p->school_num << " " << p->sex << " " << p->weight << endl;
 		p = p->next;
 	}
 
@@ -147,12 +158,67 @@ int my_link_list::delete_link_list_node(int position)
 	return 0;
 }
 
+int my_link_list::insert_link_list_node_tail(int node_num)
+{
+	struct link_list *p = head;
+	struct link_list *q;
+	int node;
+
+	//  p指向头结点，所以指到最后一个结点的时候需要max_node -1;
+	for (node = 0; node < max_node_size - 1; node++)
+	{
+		p = p->next;
+	}
+
+	for (node = 0; node < node_num; node++)
+	{
+		q = (struct link_list*)malloc(sizeof(struct link_list));
+		memset(q->name, 0, sizeof(q->name));
+		q->age = 110;
+		q->grade = 4;
+		q->height = 190;
+		q->weight = 78.3;
+		memcpy(q->name, "DaHu", 4); // 4为拷入名字的大小
+		q->sex = 'W';
+		q->node_num = max_node_size + node + 1;
+		q->school_num = 11010200;
+		p->next = q;
+		p = q;
+	}
+
+	return 0;
+}
+
+int my_link_list::insert_link_list_node_head(int node_num)
+{
+	int node;
+	struct link_list *old;
+	struct link_list *p = head;
+	struct link_list *q;
+	old = p->next;
+
+	for (node = 0; node < node_num; node++)
+	{
+		q = (struct link_list*)malloc(sizeof(struct link_list));
+		memset(q->name, 0, sizeof(q->name));
+		q->node_num = 1001 + node;
+		q->grade = 0;
+		p->next = q;
+		p = q;
+	}
+	cout << sizeof(p) << " " << sizeof(struct link_list) << endl;
+	p->next = old;
+
+	return 0;
+}
+
 int my_link_list::free_link_list(int size)
 {
 	int node;
 	struct link_list *p = head->next;
 	struct link_list *q;
-	
+
+	cout << "free:" << endl;
 	for (node = 0; node < size - 2; node++)
 	{
 		q = p;
@@ -160,6 +226,7 @@ int my_link_list::free_link_list(int size)
 		free(q);
 	}
 
+	cout << "free ok!" << endl;
 	return 0;
 }
 
