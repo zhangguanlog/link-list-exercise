@@ -39,6 +39,17 @@ my_link_list::~my_link_list()
 
 }
 
+/*******************************************************************
+*Function:       	create_link_list 
+*Description:    	创建链表
+*Table Accessed:  
+*Calls:          	需要创建链表的函数
+*Input:          	链表的大小 
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::create_link_list(int node_size)
 {
 	int i;
@@ -69,6 +80,17 @@ int my_link_list::create_link_list(int node_size)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	print_link_list 
+*Description:    	打印链表所有内容
+*Table Accessed:  
+*Calls:          	需要打印链表所有内容的函数
+*Input:          	链表的大小 
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::print_link_list(int node_size)
 {
 	int i = 0;
@@ -84,6 +106,17 @@ int my_link_list::print_link_list(int node_size)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	create_link_list_node 
+*Description:    	创建链表的一个结点
+*Table Accessed:  
+*Calls:          	需要创建链表的一个结点的函数
+*Input:          	无 
+*Table Updated: 
+*Return:         	正常返回创建的结点的指针
+*Output:         	创建的结点的指针
+*Others:         	无 
+*******************************************************************/
 struct link_list *my_link_list::create_link_list_node()
 {
 	struct link_list *p = (struct link_list *)malloc(sizeof(struct link_list));
@@ -102,6 +135,17 @@ struct link_list *my_link_list::create_link_list_node()
 	return p;
 }
 
+/*******************************************************************
+*Function:       	add_link_list_node 
+*Description:    	向链表中添加一个新的结点
+*Table Accessed:  
+*Calls:          	需要向链表中添加一个新的结点的函数
+*Input:          	需要创建的位置
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::add_link_list_node(int position)
 {
 	struct link_list *p = head;
@@ -131,6 +175,17 @@ int my_link_list::add_link_list_node(int position)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	delete_link_list_node 
+*Description:    	删除链表中的一个结点
+*Table Accessed:  
+*Calls:          	需要删除链表中的一个结点的函数
+*Input:          	需要删除的结点的位置
+*Table Updated: 
+*Return:         	正常返回0，异常返回-1
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::delete_link_list_node(int position)
 {
 	struct link_list *p = head;
@@ -158,6 +213,17 @@ int my_link_list::delete_link_list_node(int position)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	insert_link_list_node_tail 
+*Description:    	向链表尾部增加多个结点
+*Table Accessed:  
+*Calls:          	需要向链表尾部增加多个结点的函数
+*Input:          	需要增加结点的个数
+*Table Updated: 
+*Return:         	正常返回0，异常返回-1
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::insert_link_list_node_tail(int node_num)
 {
 	struct link_list *p = head;
@@ -189,6 +255,17 @@ int my_link_list::insert_link_list_node_tail(int node_num)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	insert_link_list_node_tail 
+*Description:    	向链表头部增加多个结点
+*Table Accessed:  
+*Calls:          	需要向链表头部增加多个结点的函数
+*Input:          	需要增加结点的个数
+*Table Updated: 
+*Return:         	正常返回0，异常返回-1
+*Output:         	0
+*Others:         	无 
+*******************************************************************/
 int my_link_list::insert_link_list_node_head(int node_num)
 {
 	int node;
@@ -212,6 +289,113 @@ int my_link_list::insert_link_list_node_head(int node_num)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	reverse_link_list_conversion 
+*Description:    	对链表进行反序，通过单个结点的遍历反序，最后将
+					头指针改变
+*Table Accessed:  
+*Calls:          	需要反序的链表
+*Input:          	无  
+*Table Updated: 
+*Return:         	返回0正常，返回-1空链表
+*Output:         	无 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::reverse_link_list_conversion()
+{
+	struct link_list *next_node = NULL;
+	struct link_list *pre_node = NULL;
+	struct link_list *node = head;
+
+	if (!(head->next))
+	{
+		cout << "空链表，请检查！" << endl;
+		return 0;
+	}
+
+	while (node)
+	{
+		next_node = node->next;
+		node->next = pre_node;
+		pre_node = node;
+		node = next_node;
+	}
+
+	head = pre_node;
+	return 0;
+}
+
+/*******************************************************************
+*Function:       	recursion_link_list_execution 
+*Description:    	对链表进行反序，通过递归的方式反序，对于当前每一
+					个节点，只要让它后面的每一个节点都掉一个头，然后
+					拿到掉头之后的头结点，然后指向我就可以
+*Table Accessed:  
+*Calls:          	需要反序的链表
+*Input:          	无  
+*Table Updated: 
+*Return:         	返回新的头结点正常，返回NULL发生错误
+*Output:         	新的链表 
+*Others:         	无 
+*******************************************************************/
+struct link_list *my_link_list::recursion_link_list_execution(struct link_list *head_node)
+{
+	if (!(head_node))
+	{
+		cout << "空链表" << endl;
+		return NULL;
+	}
+
+	if (!(head_node->next))
+	{
+		return head_node;
+	}
+
+	struct link_list *next = head_node->next;
+	struct link_list *new_head = recursion_link_list_execution(next);
+	next->next = head_node;
+	head_node->next = NULL;
+
+	return new_head;
+}
+
+/*******************************************************************
+*Function:       	recursion_link_list 
+*Description:    	对链表进行反序，通过递归的方式反序,接口函数
+*Table Accessed:  
+*Calls:          	需要反序的链表
+*Input:          	无  
+*Table Updated: 
+*Return:         	返回0正常，返回-1空链表
+*Output:         	新的链表 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::recursion_link_list()
+{
+	struct link_list *new_head = NULL;
+
+	new_head = recursion_link_list_execution(head);
+	if (!(new_head))
+	{
+		return -1;
+	}
+
+	head = new_head;
+
+	return 0;
+}
+
+/*******************************************************************
+*Function:       	free_link_list 
+*Description:    	释放链表
+*Table Accessed:  
+*Calls:          	需释放链表的链表
+*Input:          	整个链表的大小  
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0 
+*Others:         	无 
+*******************************************************************/
 int my_link_list::free_link_list(int size)
 {
 	int node;

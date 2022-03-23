@@ -19,6 +19,17 @@
 
 using namespace std;
 
+/*******************************************************************
+*Function:       	print_help 
+*Description:    	打印操作指导函数
+*Table Accessed:  
+*Calls:          	需要打印操作指导函数的函数
+*Input:          	无 
+*Table Updated: 
+*Return:         	无
+*Output:         	无
+*Others:         	无 
+*******************************************************************/
 void print_help()
 {
 	cout << "******************************************************************************" << endl;
@@ -29,6 +40,19 @@ void print_help()
 	cout << "******************************************************************************" << endl;
 }
 
+
+/*******************************************************************
+*Function:       	main 
+*Description:    	测试链表操作的主函数
+*Table Accessed:  
+*Calls:          	
+*Input:          	创建的链表的长度，删除链表的结点位置，增加链表
+					节点的位置等
+*Table Updated: 
+*Return:         	无
+*Output:         	无
+*Others:         	无 
+*******************************************************************/
 int main(int argc, char *argv[])
 {
 	int result;
@@ -92,6 +116,16 @@ int main(int argc, char *argv[])
 
 	// 打印添加后的链表
 	cout << "head insert after:" << endl;
+	test.print_link_list(node_size + 2 * insert_num);
+
+	// 按照前后顺序反转链表
+	test.reverse_link_list_conversion();
+	cout << "reverse link list:" << endl;
+	test.print_link_list(node_size + 2 * insert_num);
+
+	// 链表反序，递归的方式
+	test.recursion_link_list();
+	cout << "recursion reverse link list:" << endl;
 	test.print_link_list(node_size + 2 * insert_num);
 
 	// 释放链表
