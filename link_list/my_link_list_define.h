@@ -11,6 +11,7 @@
 **************************************************************************/
 #pragma once
 
+// 链表结构体
 struct link_list
 {
 	int school_num;				// 学号
@@ -24,4 +25,10 @@ struct link_list
 	struct link_list *next;		// 指向下一结点的指针
 };
 
+// 链表类型,0为单链表，1为环形链表
+enum enum_link_list_mode
+{
+	enum_single_link_list = 0,
+	enum_circle_link_list,
+};
 

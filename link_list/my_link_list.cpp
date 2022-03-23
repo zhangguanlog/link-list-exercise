@@ -20,7 +20,8 @@ using namespace std;
 
 my_link_list::my_link_list()
 {
-	// 初始化链表头
+	// 初始化单链表头head	
+	head = (struct link_list*)malloc(sizeof(link_list));
 	memset(head->name, 0, sizeof(head->name));
 	char name[10] = "liyu";
 	head->node_num = 1;
@@ -32,6 +33,20 @@ my_link_list::my_link_list()
 	head->sex = 'W';
 	head->weight = 78;
 	head->next = NULL;
+
+	// 初始化环形链表头cycle_head
+	head_cycle = (struct link_list*)malloc(sizeof(link_list));
+	memset(head_cycle->name, 0, sizeof(head_cycle->name));
+	char name1[10] = "Tangtang";
+	head_cycle->node_num = 10;
+	head_cycle->age = 21;
+	head_cycle->grade = 3;
+	head_cycle->height = 179;
+	memcpy(head_cycle->name, name1, strlen(name1));
+	head_cycle->school_num = 11010900;
+	head_cycle->sex = 'W';
+	head_cycle->weight = 78;
+	head_cycle->next = NULL;
 }
 
 my_link_list::~my_link_list()
@@ -91,10 +106,19 @@ int my_link_list::create_link_list(int node_size)
 *Output:         	0
 *Others:         	无 
 *******************************************************************/
-int my_link_list::print_link_list(int node_size)
+int my_link_list::print_link_list(int node_size, enum_link_list_mode mode)
 {
 	int i = 0;
-	struct link_list *p = head;
+	struct link_list *p;	
+	
+	if (mode == enum_circle_link_list)
+	{
+		p = head_cycle;
+	}
+	else if (mode == enum_single_link_list)
+	{
+		p = head;
+	}
 
 	for (i = 0; i < node_size; i++)
 	{
@@ -386,6 +410,77 @@ int my_link_list::recursion_link_list()
 }
 
 /*******************************************************************
+*Function:       	has_cycle_link_list 
+*Description:    	判断链表中是否有环
+*Table Accessed:  
+*Calls:          	
+*Input:          	无  
+*Table Updated: 
+*Return:         	返回0表示没有，返回1表示有环,返回-1表示空链表
+*Output:         	新的链表 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::has_cycle_link_list()
+{
+	struct link_list *quik_str = head_cycle;
+	struct link_list *slow_str = head_cycle;
+
+	if (head_cycle->next == NULL)
+	{
+		cout << "空链表！" << endl;
+		return -1;
+	}
+
+	while (1)
+	{
+		quik_str = quik_str->next->next;
+		slow_str = slow_str->next;
+
+		if (quik_str->next == NULL)
+		{
+			cout << "link no cycle!" << endl;
+			return 0;
+		}
+		else if (quik_str == slow_str)
+		{
+			cout << "link has cycle" << endl;
+			return 1;
+		}
+	}
+
+}
+
+/*******************************************************************
+*Function:       	create_cycle_link_list 
+*Description:    	创建环形链表
+*Table Accessed:  
+*Calls:
+*Input:          	创建的链表的大小链表的大小  
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::create_cycle_link_list(int node_num)
+{
+	int num;
+	struct link_list *p = head_cycle;
+	struct link_list *q;
+
+	for (num = 0; num < node_num; num++)
+	{
+		q = (struct link_list *)malloc(sizeof(link_list));
+		q->node_num = num + 11;
+		p->next = q;
+		p = q;
+	}
+
+	p->next = head_cycle;
+
+	return 0;
+}
+
+/*******************************************************************
 *Function:       	free_link_list 
 *Description:    	释放链表
 *Table Accessed:  
@@ -403,7 +498,7 @@ int my_link_list::free_link_list(int size)
 	struct link_list *q;
 
 	cout << "free:" << endl;
-	for (node = 0; node < size - 2; node++)
+	for (node = 0; node < size - 1; node++)
 	{
 		q = p;
 		p = p->next;
@@ -414,5 +509,33 @@ int my_link_list::free_link_list(int size)
 	return 0;
 }
 
+/*******************************************************************
+*Function:       	free_cycle_link_list 
+*Description:    	释放链表
+*Table Accessed:  
+*Calls:          	需释放链表的函数
+*Input:          	链表的大小  
+*Table Updated: 
+*Return:         	正常返回0
+*Output:         	0 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::free_cycle_link_list(int size)
+{
+	int node;
+	struct link_list *p = head_cycle->next;
+	struct link_list *q;
+
+	cout << "cycle free:" << endl;
+	for (node = 0; node < size - 1; node++)
+	{
+		q = p;
+		p = p->next;
+		free(q);
+	}
+
+	cout << "cycle free ok!" << endl;
+	return 0;
+}
 
 

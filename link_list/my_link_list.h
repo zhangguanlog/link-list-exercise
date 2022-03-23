@@ -18,23 +18,27 @@ public:
 		my_link_list();
 		~my_link_list();
 public:
-	int create_link_list(int node_size);							// 创建链表
-	int print_link_list(int node_size);								// 打印链表的所有结点的值
-	int add_link_list_node(int position);							// 再第position个位置插入一个结点
-	int delete_link_list_node(int position)		;					// 删除第position个位置的结点
-	int free_link_list(int size);									// 释放整个链表
-	int insert_link_list_node_tail(int node_num);					// 像链表插入node_num个结点
-	int insert_link_list_node_head(int node_num);					// 向链表头部插入node_num个结点
-	int reverse_link_list_conversion();								// 链表反序，通过前后颠倒的顺序
-	int recursion_link_list();										// 链表反序，通过递归的方式
+	int create_link_list(int node_size);
+	int print_link_list(int node_size, enum_link_list_mode mode);
+	int add_link_list_node(int position);
+	int delete_link_list_node(int position)		;
+	int free_link_list(int size);
+	int insert_link_list_node_tail(int node_num);
+	int insert_link_list_node_head(int node_num);
+	int reverse_link_list_conversion();
+	int recursion_link_list();
+	int has_cycle_link_list();
+	int create_cycle_link_list(int node_num);
+	int free_cycle_link_list(int size);
 	
 private:
 	struct link_list *create_link_list_node();
-	struct link_list *recursion_link_list_execution(struct link_list *head);				// 链表反序，通过递归的方式
+	struct link_list *recursion_link_list_execution(struct link_list *head);
 
 private:
-	struct link_list 	*head;									// 链表头节点
-	int 				max_node_size;							// 创建的整个链表的大小
+	struct link_list 	*head;
+	struct link_list	*head_cycle;
+	int 				max_node_size;
 	
 };
 

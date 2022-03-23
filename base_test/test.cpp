@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
 	int delete_node_position;
 	int node_size;
 	int insert_num;
+	enum_link_list_mode mode;
 
 	if ((argc == 2) && (!strncmp(argv[1], "-h", 2)))
 	{
@@ -77,6 +78,7 @@ int main(int argc, char *argv[])
 	add_node_position = atoi(argv[2]);		// 加入的结点的位置
 	delete_node_position = atoi(argv[3]);	// 删除的结点的位置
 	insert_num = atoi(argv[4]);				// 增加结点的个数
+	mode = enum_single_link_list;			// 单向链表
 	
 	my_link_list test;
 
@@ -84,7 +86,7 @@ int main(int argc, char *argv[])
 	test.create_link_list(node_size);
 
 	// 打印创建的链表
-	test.print_link_list(node_size);
+	test.print_link_list(node_size, mode);
 
 	// 像链表中增加结点
 	result = test.add_link_list_node(add_node_position);
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
 	{
 		// 增加成功后打印添加后的链表
 		cout << "add after:" << endl;
-		test.print_link_list(node_size + 1);
+		test.print_link_list(node_size + 1, mode);
 	}
 
 	// 删除链表的某个结点
@@ -101,7 +103,7 @@ int main(int argc, char *argv[])
 	{
 		// 删除成功后打印删除后的链表
 		cout << "delete after:" << endl;
-		test.print_link_list(node_size);
+		test.print_link_list(node_size, mode);
 	}
 
 	// 向链表尾部添加insert_num个结点
@@ -109,24 +111,24 @@ int main(int argc, char *argv[])
 
 	// 添加后打印链表
 	cout << "tail insert after:" << endl;
-	test.print_link_list(node_size + insert_num);
+	test.print_link_list(node_size + insert_num, mode);
 
 	// 向链表头结点后添加insert_num个结点
 	test.insert_link_list_node_head(insert_num);
 
 	// 打印添加后的链表
 	cout << "head insert after:" << endl;
-	test.print_link_list(node_size + 2 * insert_num);
+	test.print_link_list(node_size + 2 * insert_num, mode);
 
 	// 按照前后顺序反转链表
 	test.reverse_link_list_conversion();
 	cout << "reverse link list:" << endl;
-	test.print_link_list(node_size + 2 * insert_num);
+	test.print_link_list(node_size + 2 * insert_num, mode);
 
 	// 链表反序，递归的方式
 	test.recursion_link_list();
 	cout << "recursion reverse link list:" << endl;
-	test.print_link_list(node_size + 2 * insert_num);
+	test.print_link_list(node_size + 2 * insert_num, mode);
 
 	// 释放链表
 	test.free_link_list(node_size + 2 * insert_num);
