@@ -411,7 +411,9 @@ int my_link_list::recursion_link_list()
 
 /*******************************************************************
 *Function:       	has_cycle_link_list 
-*Description:    	判断链表中是否有环
+*Description:    	判断链表中是否有环，快指针每次走两步，慢指针走一步，
+					快指针和慢指针相等的时候说明链表有环，快指针走到空
+					的位置，说明链表没环。
 *Table Accessed:  
 *Calls:          	
 *Input:          	无  
@@ -481,6 +483,96 @@ int my_link_list::create_cycle_link_list(int node_num)
 }
 
 /*******************************************************************
+*Function:       	delete_link_list_back_node 
+*Description:    	删除链表的倒数第n个结点,思路：让快指针和慢指针
+					的步数差恰好为n，然后快指针走到链表结尾的时候，
+					慢指针恰好走到距离链表结尾n的位置。
+*Table Accessed:  
+*Calls:          	
+*Input:          	倒数第n个位置  
+*Table Updated: 
+*Return:         	正常返回0,异常返回-1
+*Output:         	0 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::delete_link_list_back_node(int back_position)
+{
+	link *rear_ptr = head;
+	link *pre_ptr = head;
+	link *p;
+	int cnt = 0;
+
+	if (head->next == NULL)
+	{
+		cout << "空链表！delete_link_list_back_node" << endl;
+		return -1;
+	}
+
+	if (back_position <= 0)
+	{
+		cout << "删除位置输入错误！"<< endl;
+		return -1;
+	}
+
+	while (1)
+	{		
+		if (rear_ptr->next == NULL)
+		{
+			break;
+		}
+
+		if (cnt < back_position)
+		{
+			rear_ptr = rear_ptr->next;
+		}
+		else 
+		{
+			rear_ptr = rear_ptr->next;
+			pre_ptr = pre_ptr->next;
+		}
+		cnt ++;
+	}
+
+	p = pre_ptr->next;
+	
+	pre_ptr->next = pre_ptr->next->next;
+
+	free(p);
+
+	return 0;
+}
+
+/*******************************************************************
+*Function:       	find_link_list_middle 
+*Description:    	寻找链表的中点结点,思路：快指针每次走两步，慢
+					指针每次走一步，当快指针走到链表尽头的时候，慢
+					指针恰好走到走到链表的重点。
+*Table Accessed:  
+*Calls:          	
+*Input:          	无
+*Table Updated: 
+*Return:         	正常返回0,异常返回-1
+*Output:         	0 
+*Others:         	无 
+*******************************************************************/
+int my_link_list::find_link_list_middle_node()
+{
+	link *fast = head;
+	link *slow = head;
+
+	while ((fast != NULL) && (fast->next != NULL))
+	{
+		fast = fast->next->next;
+		slow = slow->next;
+	}
+
+	cout << slow->age << " " << slow->node_num << endl;
+	
+	return 0;
+}
+
+
+/*******************************************************************
 *Function:       	free_link_list 
 *Description:    	释放链表
 *Table Accessed:  
@@ -511,7 +603,7 @@ int my_link_list::free_link_list(int size)
 
 /*******************************************************************
 *Function:       	free_cycle_link_list 
-*Description:    	释放链表
+*Description:    	释放环形链表
 *Table Accessed:  
 *Calls:          	需释放链表的函数
 *Input:          	链表的大小  

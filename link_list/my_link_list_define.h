@@ -25,6 +25,9 @@ struct link_list
 	struct link_list *next;		// 指向下一结点的指针
 };
 
+// 区别名
+typedef struct link_list link;
+
 // 链表类型,0为单链表，1为环形链表
 enum enum_link_list_mode
 {

@@ -30,6 +30,8 @@ public:
 	int has_cycle_link_list();
 	int create_cycle_link_list(int node_num);
 	int free_cycle_link_list(int size);
+	int delete_link_list_back_node(int position);
+	int find_link_list_middle_node();
 	
 private:
 	struct link_list *create_link_list_node();
